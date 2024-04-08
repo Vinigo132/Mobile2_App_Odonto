@@ -1,3 +1,5 @@
+import 'package:app_odonto/View/cadastro.dart';
+import 'package:app_odonto/View/esqueceuSenha.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import './View/login.dart';
@@ -22,22 +24,28 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 25, 195, 207),
-          leading: Image(image: AssetImage('assets/images/nossa-marca.png')),
-          centerTitle: true,
-          title: const Text(
-            "Login",
-            style: TextStyle(
-              color: Color.fromARGB(255, 10, 16, 83),
-              fontWeight: FontWeight.bold,
-              fontSize: 30
-            )
-          ),
-        ),
-        body: LoginScreen(),
-        ),
+      // home: Scaffold(
+      //   appBar: AppBar(
+      //     backgroundColor: Color.fromARGB(255, 25, 195, 207),
+      //     leading: Image(image: AssetImage('assets/images/nossa-marca.png')),
+      //     centerTitle: true,
+      //     title: const Text(
+      //       "Login",
+      //       style: TextStyle(
+      //         color: Color.fromARGB(255, 10, 16, 83),
+      //         fontWeight: FontWeight.bold,
+      //         fontSize: 30
+      //       )
+      //     ),
+      //   ),
+      //   body: LoginScreen(),
+      //   ),
+        initialRoute: 'Login',
+        routes: {
+          'Login': (context) => LoginScreen(),
+          'Cadastro' :(context) => CadastroScreen(),
+          'EsqueceuSenha': (context) => EsqueceuSenhaScreen(),
+        },
       );
   }
 }

@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 
-
-class LoginScreen  extends StatefulWidget {
-  const LoginScreen ({super.key});
+class CadastroScreen extends StatefulWidget {
+  const CadastroScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<CadastroScreen> createState() =>  _CadastroScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>{
-    bool passwordVisible = false; 
+class  _CadastroScreenState extends State <CadastroScreen> {
+  bool passwordVisible = false;
+  bool passwordVisibleConfirm = false; 
       
    @override 
     void initState(){ 
       super.initState(); 
-      passwordVisible = true; 
+      passwordVisible = true;
+      passwordVisibleConfirm = true; 
     }
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 25, 195, 207),
-          leading: Image(image: AssetImage('assets/images/nossa-marca.png')),
           centerTitle: true,
           title: const Text(
             "Odonto Helper",
@@ -34,13 +34,13 @@ class _LoginScreenState extends State<LoginScreen>{
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 50),
           child: Center(
             child: SingleChildScrollView(
               child: Column(
                 children: [
                     const Text(
-                      "Login",
+                      "Cadastro",
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.w900,
@@ -79,20 +79,24 @@ class _LoginScreenState extends State<LoginScreen>{
                       ),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 25,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
+                    TextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: passwordVisibleConfirm,
+                      decoration: InputDecoration(
+                        labelText: "Confirme a Senha",
+                        border: const OutlineInputBorder(),
+                        prefixIcon: const Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: Icon(passwordVisibleConfirm ? Icons.visibility : Icons.visibility_off),
                           onPressed: (){
-                            Navigator.pushNamed(context, 'EsqueceuSenha');
-                          }, 
-                          child: const Text(
-                            "Esqueceu sua senha?"
-                          )
+                            setState(() {
+                              passwordVisibleConfirm = !passwordVisibleConfirm;
+                            }); 
+                          },
                         )
-                      ],
+                      ),
                     ),
                     const SizedBox(
                       height: 25,
@@ -107,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       child: MaterialButton(
                         onPressed: (){},
                         child: const Text(
-                          "LOGIN",
+                          "CADASTRAR",
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
@@ -115,35 +119,6 @@ class _LoginScreenState extends State<LoginScreen>{
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const Divider(
-                      height: 30,
-                      color: Colors.black,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              "Não tem uma conta?",
-                              style: TextStyle(
-                                color: Colors.black.withOpacity(0.7),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: (){
-                                Navigator.pushNamed(context, 'Cadastro');
-                              }, 
-                              child: const Text(
-                              "Cadastrar Conta"
-                            ))
-                          ]
-                        )
-                      ],
-                    )
                   ],
               ),
             )
@@ -152,4 +127,3 @@ class _LoginScreenState extends State<LoginScreen>{
       );  
   }
 }
-

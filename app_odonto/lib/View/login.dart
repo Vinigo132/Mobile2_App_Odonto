@@ -105,7 +105,9 @@ class _LoginScreenState extends State<LoginScreen>{
                         gradient: const LinearGradient(colors: [Colors.blue, Colors.yellow])
                       ),
                       child: MaterialButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.pushNamed(context, 'Menu');
+                        },
                         child: const Text(
                           "LOGIN",
                           style: TextStyle(

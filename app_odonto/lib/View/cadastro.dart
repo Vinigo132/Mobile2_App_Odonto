@@ -23,6 +23,9 @@ class  _CadastroScreenState extends State <CadastroScreen> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 25, 195, 207),
+          actions: const [
+            Image(image: AssetImage('assets/images/nossa-marca.png')),
+          ],
           centerTitle: true,
           title: const Text(
             "Odonto Helper",
@@ -44,7 +47,7 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.w900,
-                        color: Colors.blue
+                        color: Color.fromARGB(255, 10, 16, 83)
                       ),
                     ),
                     const SizedBox(

@@ -22,7 +22,9 @@ class _LoginScreenState extends State<LoginScreen>{
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 25, 195, 207),
-          leading: Image(image: AssetImage('assets/images/nossa-marca.png')),
+          actions: const [
+            Image(image: AssetImage('assets/images/nossa-marca.png')),
+          ],
           centerTitle: true,
           title: const Text(
             "Odonto Helper",
@@ -44,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.w900,
-                        color: Colors.blue
+                        color: Color.fromARGB(255, 10, 16, 83)
                       ),
                     ),
                     const SizedBox(

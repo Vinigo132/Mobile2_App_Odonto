@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class SobreScreen extends StatefulWidget {
   const SobreScreen({super.key});
@@ -98,6 +99,34 @@ class _SobreScreenState extends State<SobreScreen> {
                       color: Colors.grey,
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                   Expanded(
+                     child: Container(
+                        height: 60,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          gradient: const LinearGradient(colors: [Color.fromARGB(255, 102, 13, 2), Color.fromARGB(255, 196, 3, 3)])
+                        ),
+                        child: MaterialButton(
+                          onPressed: (){
+                            Navigator.pushNamedAndRemoveUntil(context, 'Login', (route) => false);
+                          },
+                          child: const Text(
+                            "Sair",
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                   ),
                 ],
               ),
             ],

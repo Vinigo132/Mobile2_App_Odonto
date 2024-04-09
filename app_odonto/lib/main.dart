@@ -1,7 +1,6 @@
 import 'package:app_odonto/View/cadastro.dart';
 import 'package:app_odonto/View/esqueceu_senha.dart';
 import 'package:app_odonto/View/menu.dart';
-import 'package:app_odonto/View/sobre.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import './View/login.dart';
@@ -48,7 +47,6 @@ class MainApp extends StatelessWidget {
           'Cadastro' : (context) => const CadastroScreen(),
           'EsqueceuSenha': (context) => const EsqueceuSenhaScreen(),
           'Menu': (context) => const MenuScreen(),
-          'Sobre': (context) => const SobreScreen(),
         },
       );
   }

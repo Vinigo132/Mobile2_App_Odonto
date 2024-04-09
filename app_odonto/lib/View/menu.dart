@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app_odonto/Model/termos_tecnicos.dart';
 
+
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
 
@@ -33,13 +34,14 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
           NavigationDestination(
             icon: Icon(Icons.info), 
-            label: 'Sobre'
+            label: 'Sobre',
           ),
         ],
         selectedIndex: currentPageIndex,
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
+            Navigator.pushNamed(context,'Sobre');
           });
         },
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,

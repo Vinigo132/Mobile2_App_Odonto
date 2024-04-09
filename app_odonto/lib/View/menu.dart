@@ -33,11 +33,13 @@ class _MenuScreenState extends State<MenuScreen> {
         height: 65,
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.home), 
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home), 
             label: 'Menu'
           ),
           NavigationDestination(
-            icon: Icon(Icons.info), 
+            icon: Icon(Icons.info_outline),
+            selectedIcon: Icon(Icons.info), 
             label: 'Sobre',
           ),
         ],
@@ -49,11 +51,11 @@ class _MenuScreenState extends State<MenuScreen> {
           });
         },
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        backgroundColor: Color.fromARGB(255, 171, 229, 233),
+        backgroundColor: const Color.fromARGB(255, 171, 229, 233),
         animationDuration: const Duration(milliseconds: 500),
       ),
       appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 25, 195, 207),
+          backgroundColor: const Color.fromARGB(255, 25, 195, 207),
           actions: const [
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 10, 5), // Defina a margem desejada aqui

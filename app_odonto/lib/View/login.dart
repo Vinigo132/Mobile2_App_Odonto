@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       ),
                       child: MaterialButton(
                         onPressed: (){
-                          Navigator.pushNamed(context, 'Menu');
+                          Navigator.pushNamedAndRemoveUntil(context, 'Menu', (route) => false);
                         },
                         child: const Text(
                           "LOGIN",

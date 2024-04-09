@@ -8,7 +8,7 @@ class SobreScreen extends StatefulWidget {
 }
 
 class _SobreScreenState extends State<SobreScreen> {
-  var currentPageIndex = 0;
+  var currentPageIndex = 1;
 
   @override
   void initState() {
@@ -18,39 +18,6 @@ class _SobreScreenState extends State<SobreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: 'Menu'),
-          NavigationDestination(icon: Icon(Icons.info), label: 'Sobre'),
-        ],
-        selectedIndex: currentPageIndex,
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-            if (index == 0) {
-              Navigator.pushNamed(context, 'Menu');
-            }
-          });
-        },
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        backgroundColor: Color.fromARGB(255, 171, 229, 233),
-        animationDuration: const Duration(milliseconds: 500),
-      ),
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 25, 195, 207),
-        actions: const [
-          Image(image: AssetImage('assets/images/nossa-marca.png')),
-        ],
-        centerTitle: true,
-        title: const Text(
-          "Odonto Helper",
-          style: TextStyle(
-            color: Color.fromARGB(255, 10, 16, 83),
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-          ),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(30),
         child: Center(

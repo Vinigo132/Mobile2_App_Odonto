@@ -24,7 +24,12 @@ class  _CadastroScreenState extends State <CadastroScreen> {
       appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 25, 195, 207),
           actions: const [
-            Image(image: AssetImage('assets/images/nossa-marca.png')),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 10, 5), // Defina a margem desejada aqui
+              child: Image(
+                image: AssetImage('assets/images/nossa-marca.png'),
+              ),
+            ),
           ],
           centerTitle: true,
           title: const Text(
@@ -33,6 +38,12 @@ class  _CadastroScreenState extends State <CadastroScreen> {
               color: Color.fromARGB(255, 10, 16, 83),
               fontWeight: FontWeight.bold,
               fontSize: 30
+            )
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(25),
+              bottomRight: Radius.circular(25)
             )
           ),
         ),

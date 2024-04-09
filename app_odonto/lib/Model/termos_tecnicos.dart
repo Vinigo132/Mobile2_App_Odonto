@@ -6,3 +6,4 @@ class TermosTecnicos{
   TermosTecnicos(this.nome, this.descricao);
 
 }
+

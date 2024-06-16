@@ -1,3 +1,4 @@
+import 'package:app_odonto/Controller/login_cadastro_controller.dart';
 import 'package:flutter/material.dart';
 
 
@@ -10,6 +11,9 @@ class LoginScreen  extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>{
     bool passwordVisible = false; 
+
+    var txtEmail = TextEditingController();
+    var txtSenha = TextEditingController();
       
    @override 
     void initState(){ 
@@ -64,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       height: 25,
                     ),
                     TextFormField(
+                      controller: txtEmail,
                       keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
                         labelText: "Insira seu Email",
@@ -75,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       height: 25,
                     ),
                     TextFormField(
+                      controller: txtSenha,
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: passwordVisible,
                       decoration: InputDecoration(
@@ -119,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       ),
                       child: MaterialButton(
                         onPressed: (){
-                          Navigator.pushNamedAndRemoveUntil(context, 'Menu', (route) => false);
+                          LoginController().login(context, txtEmail.text, txtSenha.text);
                         },
                         child: const Text(
                           "LOGIN",

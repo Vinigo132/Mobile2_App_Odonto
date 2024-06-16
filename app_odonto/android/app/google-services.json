@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "611398646443",
+    "project_id": "app-unaerp-odonto",
+    "storage_bucket": "app-unaerp-odonto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611398646443:android:83374632cde03d80fd55ee",
+        "android_client_info": {
+          "package_name": "com.example.app08"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8YomVKq7zFWFqmo5zBP8uWNNxXokuQmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611398646443:android:318d35bb47a01fddfd55ee",
+        "android_client_info": {
+          "package_name": "com.example.app_odonto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8YomVKq7zFWFqmo5zBP8uWNNxXokuQmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

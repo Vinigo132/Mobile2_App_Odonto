@@ -1,7 +1,21 @@
+import 'package:app_odonto/Controller/login_cadastro_controller.dart';
 import 'package:flutter/material.dart';
 
-class EsqueceuSenhaScreen extends StatelessWidget {
-  const EsqueceuSenhaScreen({super.key});
+class EsqueceuSenhaScreen  extends StatefulWidget {
+  const EsqueceuSenhaScreen ({super.key});
+
+  @override
+  State<EsqueceuSenhaScreen> createState() => _EsqueceuSenhaScreenState();
+}
+
+class _EsqueceuSenhaScreenState extends State<EsqueceuSenhaScreen>{
+
+    var txtEmailEsqueceu = TextEditingController();
+      
+   @override 
+    void initState(){ 
+      super.initState();  
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +64,7 @@ class EsqueceuSenhaScreen extends StatelessWidget {
                       height: 25,
                     ),
                     TextFormField(
+                      controller: txtEmailEsqueceu,
                       keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
                         labelText: "Insira seu Email",
@@ -68,7 +83,9 @@ class EsqueceuSenhaScreen extends StatelessWidget {
                         gradient: const LinearGradient(colors: [Colors.blue, Colors.yellow])
                       ),
                       child: MaterialButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          LoginController().esqueceuSenha(context, txtEmailEsqueceu.text);
+                        },
                         child: const Text(
                           "ENVIAR",
                           style: TextStyle(

@@ -1,3 +1,6 @@
+import 'dart:js';
+
+import 'package:app_odonto/Controller/login_cadastro_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -115,7 +118,7 @@ class _SobreScreenState extends State<SobreScreen> {
                         ),
                         child: MaterialButton(
                           onPressed: (){
-                            Navigator.pushNamedAndRemoveUntil(context, 'Login', (route) => false);
+                            LoginController().logout(context);
                           },
                           child: const Text(
                             "Sair",

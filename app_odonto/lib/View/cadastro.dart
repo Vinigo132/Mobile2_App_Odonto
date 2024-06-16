@@ -1,4 +1,8 @@
+import 'package:app_odonto/view/util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../Controller/login_cadastro_controller.dart';
 
 class CadastroScreen extends StatefulWidget {
   const CadastroScreen({super.key});
@@ -10,6 +14,12 @@ class CadastroScreen extends StatefulWidget {
 class  _CadastroScreenState extends State <CadastroScreen> {
   bool passwordVisible = false;
   bool passwordVisibleConfirm = false; 
+
+  var txtEmail = TextEditingController();
+  var txtNome = TextEditingController();
+  var txtCodigo = TextEditingController();
+  var txtSenha = TextEditingController();
+  var txtConfirmSenha = TextEditingController();
       
    @override 
     void initState(){ 
@@ -65,6 +75,7 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                       height: 25,
                     ),
                     TextFormField(
+                      controller: txtEmail,
                       keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
                         labelText: "Insira seu Email",
@@ -76,6 +87,38 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                       height: 25,
                     ),
                     TextFormField(
+                      controller: txtNome,
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                        labelText: "Insira seu Nome",
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.tag)
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    TextFormField(
+                      controller: txtCodigo,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: "Insira seu Código de Matrícula",
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.pin)
+                      ),
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, insira um código';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    TextFormField(
+                      controller: txtSenha,
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: passwordVisible,
                       decoration: InputDecoration(
@@ -96,6 +139,7 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                       height: 25,
                     ),
                     TextFormField(
+                      controller: txtConfirmSenha,
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: passwordVisibleConfirm,
                       decoration: InputDecoration(
@@ -123,7 +167,19 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                         gradient: const LinearGradient(colors: [Colors.blue, Colors.yellow])
                       ),
                       child: MaterialButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          if( txtSenha.text == txtConfirmSenha.text ){
+                            LoginController().criarConta(
+                              context,
+                              txtEmail.text,
+                              txtNome.text,
+                              int.parse(txtCodigo.text),
+                              txtSenha.text
+                            );
+                          }
+                          else
+                            erro(context, 'As senhas não conferem, digite novamente!');
+                        },
                         child: const Text(
                           "CADASTRAR",
                           style: TextStyle(

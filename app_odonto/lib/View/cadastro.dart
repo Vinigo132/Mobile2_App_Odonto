@@ -84,6 +84,9 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                           if(!value!.endsWith('@sou.unaerp.edu.br')){
                             return 'Não é permitido cadastrar esse formato de email.';
                           }
+                          else{
+                            return null;
+                          }
                         },
                         decoration: const InputDecoration(
                           labelText: "Insira seu Email",
@@ -103,6 +106,14 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.tag)
                         ),
+                        validator: (value){
+                          if (value == null || value.isEmpty){
+                            return 'Campo obrigatório';
+                          }
+                          else{
+                            return null;
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 25,
@@ -136,6 +147,9 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                         validator: (value){
                           if(value!.length < 6){
                             return 'a senha deve conter pelo menos 6 caracteres.';
+                          }
+                          else{
+                          return null;
                           }
                         },
                         decoration: InputDecoration(
@@ -172,6 +186,14 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                             },
                           )
                         ),
+                        validator: (value){
+                          if(value != txtSenha.text){
+                            return 'As senhas não conferem, digite novamente!';
+                          }
+                          else{
+                          return null;
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 25,
@@ -185,8 +207,7 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                         ),
                         child: MaterialButton(
                           onPressed: (){
-                            if ( formKey.currentState != null && formKey.currentState!.validate() && txtSenha.text == txtConfirmSenha.text ) {
-                              
+                            if ( formKey.currentState != null && formKey.currentState!.validate()) {
                                 LoginController().criarConta(
                                   context,
                                   txtEmail.text,
@@ -194,9 +215,8 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                                   int.parse(txtCodigo.text),
                                   txtSenha.text
                                 );
-                              
                               }else{
-                                erro(context, 'As senhas não conferem, digite novamente!');
+                                erro(context, 'Não foi possível cadastrar, revise as informações');
                               }
                           },
                           child: const Text(

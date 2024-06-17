@@ -70,7 +70,7 @@ class LoginController {
       FirebaseAuth.instance.sendPasswordResetEmail(
         email: email,
       );
-      sucesso(context, 'Email enviado com sucesso.');
+      sucesso(context, 'Se este email estiver cadastrado, você receberá um email com as instruções necessárias.');
       Navigator.pop(context);
     } else {
       erro(context, 'Informe o email para recuperar a conta.');

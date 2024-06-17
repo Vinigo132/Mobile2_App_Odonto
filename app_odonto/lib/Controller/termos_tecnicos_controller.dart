@@ -18,9 +18,13 @@ class TermosTecnicosController {
   }
 
   //Listar todas as tarefas do usuário logado
-  listar() {
-    return FirebaseFirestore.instance
-        .collection('termos_tecnicos');
+  listar(professor) {
+    if(professor){
+      return FirebaseFirestore.instance.collection('termos_tecnicos');
+    }else{
+      return FirebaseFirestore.instance.collection('termos_tecnicos').where('status', isEqualTo: true);
+    }
+    
         //.where('uid', isEqualTo: LoginController().idUsuarioLogado());
   }
 

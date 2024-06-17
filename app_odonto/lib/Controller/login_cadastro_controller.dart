@@ -88,7 +88,11 @@ class LoginController {
   //
   // Retornar o UID (User Identifier) do usuário que está logado no App
   //
-  idUsuarioLogado() {
-    return FirebaseAuth.instance.currentUser!.uid;
+  verificarProfessor() {
+    if (FirebaseAuth.instance.currentUser!.email!.endsWith('@unaerp.br')){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

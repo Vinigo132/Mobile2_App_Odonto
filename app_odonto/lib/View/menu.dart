@@ -51,7 +51,7 @@ class _MenuScreenState extends State<MenuScreen> {
           });
         },
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        backgroundColor: const Color.fromARGB(255, 171, 229, 233),
+        backgroundColor: const Color.fromARGB(255, 25, 195, 207),
         animationDuration: const Duration(milliseconds: 500),
       ),
       appBar: AppBar(

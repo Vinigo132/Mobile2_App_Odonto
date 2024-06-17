@@ -110,15 +110,23 @@ class _BuscaTermosState extends State<BuscaTermos> {
           ]
         ),
       ),
-      floatingActionButton: perfilProfessor ? 
-        FloatingActionButton(
-          onPressed: () {
-            salvarTermoTecnico(context);
-          },
-          child: const Icon(Icons.add),
-        ) 
+          floatingActionButton: perfilProfessor
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 40.0),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    salvarTermoTecnico(context);
+                  },
+                  child: const Icon(Icons.add),
+                ),
+              ),
+            ],
+          )
         : null,
-    );
+      );
 
   }
 
@@ -128,6 +136,7 @@ class _BuscaTermosState extends State<BuscaTermos> {
       context: context,
       builder: (BuildContext context) {
         bool localStatus = status;
+        final formKey = GlobalKey<FormState>();
         // retorna um objeto do tipo Dialog
         return StatefulBuilder(
           builder: (context, setState) {
@@ -140,53 +149,72 @@ class _BuscaTermosState extends State<BuscaTermos> {
                       ),
                     ), 
             content: SizedBox(
-              height: 400,
+              height: 425,
               width: 350,
-              child: Column(
-                children: [
-                  TextField(
-                    controller: txtNome,
-                    decoration: const InputDecoration(
-                      labelText: 'Nome',
-                      prefixIcon: Icon(Icons.manage_search),
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  TextField(
-                    controller: txtDescricao,
-                    maxLines: 10,
-                    decoration: const InputDecoration(
-                      labelText: 'Descrição',
-                      alignLabelWithHint: true,
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      const Text(
-                        'Status:',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ), 
-                      const SizedBox(width: 10),
-                      Switch(
-                        // This bool value toggles the switch.
-                        value: localStatus,
-                        activeColor: Colors.green,
-                        onChanged: (bool value) {
-                          // This is called when the user toggles the switch.
-                          setState(() {
-                            localStatus = value;
-                          });
-                        },
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: txtNome,
+                      validator: (value){
+                        if (value == null || value.isEmpty){
+                          return 'Campo obrigatório';
+                        }
+                        else{
+                          return null;
+                        }
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Nome',
+                        prefixIcon: Icon(Icons.manage_search),
+                        border: OutlineInputBorder(),
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      controller: txtDescricao,
+                      maxLines: 10,
+                      validator: (value){
+                        if (value == null || value.isEmpty){
+                          return 'Campo obrigatório';
+                        }
+                        else{
+                          return null;
+                        }
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Descrição',
+                        alignLabelWithHint: true,
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
+                      children: [
+                        const Text(
+                          'Status:',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ), 
+                        const SizedBox(width: 10),
+                        Switch(
+                          // This bool value toggles the switch.
+                          value: localStatus,
+                          activeColor: Colors.green,
+                          onChanged: (bool value) {
+                            // This is called when the user toggles the switch.
+                            setState(() {
+                              localStatus = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
@@ -203,21 +231,23 @@ class _BuscaTermosState extends State<BuscaTermos> {
               IconButton(
                 icon: const Icon(Icons.check),
                 onPressed: () {
-                  //criar objeto Tarefa
-                  var t = TermosTecnicos(
-                    txtNome.text,
-                    txtDescricao.text,
-                    localStatus,
-                  );
+                  if ( formKey.currentState != null && formKey.currentState!.validate()) {
+                    //criar objeto Tarefa
+                    var t = TermosTecnicos(
+                      txtNome.text,
+                      txtDescricao.text,
+                      localStatus,
+                    );
 
-                  txtNome.clear();
-                  txtDescricao.clear();
-                  status = true;
+                    txtNome.clear();
+                    txtDescricao.clear();
+                    status = true;
 
-                  if (docId == null) {
-                    TermosTecnicosController().adicionar(context, t);
-                  } else {
-                    TermosTecnicosController().atualizar(context, docId, t);
+                    if (docId == null) {
+                      TermosTecnicosController().adicionar(context, t);
+                    } else {
+                      TermosTecnicosController().atualizar(context, docId, t);
+                    }
                   }
                 },
               ),

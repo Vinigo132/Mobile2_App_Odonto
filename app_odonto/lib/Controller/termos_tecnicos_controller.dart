@@ -24,8 +24,6 @@ class TermosTecnicosController {
     }else{
       return FirebaseFirestore.instance.collection('termos_tecnicos').where('status', isEqualTo: true);
     }
-    
-        //.where('uid', isEqualTo: LoginController().idUsuarioLogado());
   }
 
   //Excluir tarefa

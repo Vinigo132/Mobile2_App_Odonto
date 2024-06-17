@@ -83,6 +83,7 @@ class _BuscaTermosState extends State<BuscaTermos> {
                           String id = dados.docs[index].id;
                           dynamic doc = dados.docs[index].data();
                           return Card(
+                            color: doc['status'] == true ? null : Colors.grey, // Cor azul com 50% de opacidade,
                             // Set the shape of the card using a rounded rectangle border with a 8 pixel radius
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),

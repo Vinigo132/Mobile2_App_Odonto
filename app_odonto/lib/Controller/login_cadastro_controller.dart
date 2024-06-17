@@ -78,7 +78,7 @@ class LoginController {
   }
 
   //
-  // Efetuar logou do usuário
+  // Efetuar logout do usuário
   //
   logout(context) {
     FirebaseAuth.instance.signOut();
@@ -86,7 +86,7 @@ class LoginController {
   }
 
   //
-  // Retornar o UID (User Identifier) do usuário que está logado no App
+  // Verificar se é conta professor ou não
   //
   verificarProfessor() {
     if (FirebaseAuth.instance.currentUser!.email!.endsWith('@unaerp.br')){

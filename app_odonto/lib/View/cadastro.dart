@@ -32,7 +32,7 @@ class  _CadastroScreenState extends State <CadastroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 25, 195, 207),
+          backgroundColor: const Color.fromARGB(255, 25, 195, 207),
           actions: const [
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 10, 5), // Defina a margem desejada aqui
@@ -177,8 +177,9 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                               txtSenha.text
                             );
                           }
-                          else
+                          else{
                             erro(context, 'As senhas não conferem, digite novamente!');
+                          }
                         },
                         child: const Text(
                           "CADASTRAR",

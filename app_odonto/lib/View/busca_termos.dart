@@ -1,7 +1,9 @@
+import 'package:app_odonto/Controller/termos_tecnicos_controller.dart';
+import 'package:app_odonto/model/termos_tecnicos.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//import 'package:app_odonto/Model/termos_tecnicos.dart';
 
-import '../Model/termos_tecnicos.dart';
 
 class BuscaTermos extends StatefulWidget {
   const BuscaTermos({super.key});
@@ -11,15 +13,16 @@ class BuscaTermos extends StatefulWidget {
 }
 
 class _BuscaTermosState extends State<BuscaTermos> {
+  
+  var txtNome = TextEditingController();
+  var txtDescricao = TextEditingController();
+  var txtStatus = TextEditingController();
 
-  List<TermosTecnicos> lista = [];
+
 
   @override 
     void initState(){ 
       super.initState();
-      lista.add(TermosTecnicos('Relação Cêntrica (RC)', 'relacionamento maxilomandibular independente do contato dentário, no qual os côndilos se articulam na posição anterossuperior contra as inclinações posteriores das eminências articulares. Nesta posição, a mandíbula realiza apenas um movimento de rotação. A partir desta posição fisiológica, de relação maxilomandibular, o paciente pode realizar movimentos laterais, verticais ou protrusivos. Clinicamente é uma posição de referência útil e repetível. Portanto, a RC é uma posição condilar que independe dos contatos dentários. '));
-      lista.add(TermosTecnicos('Espaço Funcional Livre (EFL)', 'é a distância entre os dentes antagonistas quando a mandíbula está em posição de repouso postural. É a diferença entre a dimensão vertical de repouso e a de oclusão e apresenta valores médios de 3 mm. O Glossário de termos protéticos, em sua 9ª edição (GPT-9, 2017) conceitua esse espaço como Espaço de Repouso Interoclusal (IORS – interoclusal rest space).'));
-      lista.add(TermosTecnicos('Máxima Intercuspidação Habitual (MIH)', 'posição de intercuspidação completa dos dentes opostos, independentemente da posição condilar. Às vezes referida como o melhor ajuste dos dentes, independentemente da posição condilar.'));
     }
 
 
@@ -46,39 +49,195 @@ class _BuscaTermosState extends State<BuscaTermos> {
                       height: 10,
           ),
           Expanded(
-            child: ListView.builder(
-              //Quant de itens
-              itemCount: lista.length,
-              //aparencia de cada item
-              itemBuilder:(context, index){
-                return Card(
-                  child: ListTile(
-                    // leading: const Icon(Icons.person_2_rounded),
-                    title: Text(
-                      lista[index].nome,
-                      style: const TextStyle(
-                        color: Color.fromARGB(255, 10, 16, 83),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      )
-                      ),
-                    subtitle: Text(lista[index].descricao),
-                    onTap: () {
-                      Clipboard.setData(ClipboardData(text: lista[index].descricao));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Descrição copiada')),
+             child: StreamBuilder<QuerySnapshot>(
+              //fluxo de dados em tempo real
+              stream: TermosTecnicosController().listar().snapshots(),
+
+              //exibição dos dados
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  //sem conexão
+                  case ConnectionState.none:
+                    return const Center(
+                      child: Text('Não foi possível conectar.'),
+                    );
+
+                  //aguardando a execução da consulta
+                  case ConnectionState.waiting:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+
+                  //Sucesso: 
+                  default:
+                    final dados = snapshot.requireData;
+                    if (dados.size > 0) {
+                      return ListView.builder(
+                        itemCount: dados.size,
+                        itemBuilder: (context, index) {
+                          String id = dados.docs[index].id;
+                          dynamic doc = dados.docs[index].data();
+                          return Card(
+                            // Set the shape of the card using a rounded rectangle border with a 8 pixel radius
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            // Set the clip behavior of the card
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            // Define the child widgets of the card
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                // Add a container with padding that contains the card's title, text, and buttons
+                                Container(
+                                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      // Display the card's title using a font size of 24 and a dark grey color
+                                      Text(
+                                        doc['nome'],
+                                        style: const TextStyle(
+                                          fontSize: 24,
+                                          color: Color.fromARGB(255, 10, 16, 83),
+                                        ),
+                                      ),
+                                      // Add a space between the title and the text
+                                      Container(height: 10),
+                                      // Display the card's text using a font size of 15 and a light grey color
+                                      Text(
+                                        doc['descricao'],
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.grey[700],
+                                        ),
+                                      ),
+
+                                      Container(height: 5),
+                                      // Add a row with two buttons spaced apart and aligned to the right side of the card
+                                      Row(
+                                        children: <Widget>[
+                                          // Add a spacer to push the buttons to the right side of the card
+                                          const Spacer(),
+                                          // Add a text button labeled "SHARE" with transparent foreground color and an accent color for the text
+                                          IconButton(
+                                            onPressed: () {
+                                              txtNome.text = doc['nome'];
+                                              txtDescricao.text = doc['descricao'];
+                                              txtStatus.text = doc['status'].toString();
+                                              salvarTermoTecnico(context, docId: id);
+                                              },
+                                              icon: const Icon(Icons.edit_outlined),
+                                          ),
+                                          // Add a text button labeled "EXPLORE" with transparent foreground color and an accent color for the text
+                                          IconButton(
+                                            onPressed: () {
+                                              TermosTecnicosController().excluir(context, id);
+                                            },
+                                            icon: const Icon(Icons.delete_outlined),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(height: 5),
+                                    ],
+                                  ),
+                                )
+                                ]
+                            )
+                          );
+                        }
                       );
-                    },
-                    hoverColor: const Color.fromARGB(50, 25, 195, 207),
-                  ),
-                );
+                    } else {
+                      return const Center(
+                        child: Text('Nenhum Termo Técnico encontrado.'),
+                      );
+                    }
+                }
               },
             ),
-          ),
+           ),
           ]
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          salvarTermoTecnico(context);
+        },
+        child: const Icon(Icons.add),
+      ),
     );
 
+  }
+
+  //cadastro de termo tecnico
+  void salvarTermoTecnico(context, {docId}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          title: Text(docId == null ? "Adicionar Termo Técnico" : "Editar Termo Técnico"),
+          content: SizedBox(
+            height: 250,
+            width: 300,
+            child: Column(
+              children: [
+                TextField(
+                  controller: txtNome,
+                  decoration: const InputDecoration(
+                    labelText: 'Nome',
+                    prefixIcon: Icon(Icons.description),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                TextField(
+                  controller: txtDescricao,
+                  maxLines: 5,
+                  decoration: const InputDecoration(
+                    labelText: 'Descrição',
+                    alignLabelWithHint: true,
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+          actions: [
+            TextButton(
+              child: const Text("fechar"),
+              onPressed: () {
+                txtNome.clear();
+                txtDescricao.clear();
+                txtStatus.clear();
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Salvar"),
+              onPressed: () {
+                //criar objeto Tarefa
+                var t = TermosTecnicos(
+                  txtNome.text,
+                  txtDescricao.text,
+                  true
+                );
+
+                txtNome.clear();
+                txtDescricao.clear();
+                txtStatus.clear();
+
+                if (docId == null) {
+                  TermosTecnicosController().adicionar(context, t);
+                } else {
+                  TermosTecnicosController().atualizar(context, docId, t);
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

@@ -5,7 +5,7 @@ import '../model/termos_tecnicos.dart';
 import '../view/util.dart';
 
 class TermosTecnicosController {
-  //Adicionar uma nova tarefa
+
   adicionar(context, TermosTecnicos t) {
     FirebaseFirestore.instance
         .collection('termos_tecnicos')
@@ -17,7 +17,7 @@ class TermosTecnicosController {
     }).whenComplete(() => Navigator.pop(context));
   }
 
-  //Listar todas as tarefas do usuário logado
+
   listar(professor, status) {
     if(professor){
       return FirebaseFirestore.instance.collection('termos_tecnicos').where('status', isEqualTo: status).orderBy('nome');
@@ -26,7 +26,7 @@ class TermosTecnicosController {
     }
   }
 
-  //Excluir tarefa
+
   excluir(context, id) {
     FirebaseFirestore.instance
         .collection('termos_tecnicos')
@@ -36,7 +36,7 @@ class TermosTecnicosController {
         .catchError((e) => erro(context, 'Não foi possível excluir o termo técnico.'));
   }
 
-  //Atualizar uma tarefa
+
   atualizar(context, id, TermosTecnicos t){
 
     FirebaseFirestore.instance.collection('termos_tecnicos')

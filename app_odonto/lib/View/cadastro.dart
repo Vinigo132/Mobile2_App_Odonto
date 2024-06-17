@@ -81,8 +81,8 @@ class  _CadastroScreenState extends State <CadastroScreen> {
                         controller: txtEmail,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value){
-                          if(value!.contains('@unaerp.br')){
-                            return 'Não é permitido cadastrar esse formato de email';
+                          if(!value!.endsWith('@sou.unaerp.edu.br')){
+                            return 'Não é permitido cadastrar esse formato de email.';
                           }
                         },
                         decoration: const InputDecoration(

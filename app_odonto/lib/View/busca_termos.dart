@@ -149,7 +149,7 @@ class _BuscaTermosState extends State<BuscaTermos> {
                       ),
                     ), 
             content: SizedBox(
-              height: 425,
+              height: 450,
               width: 350,
               child: Form(
                 key: formKey,

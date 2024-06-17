@@ -64,7 +64,7 @@ class _SobreScreenState extends State<SobreScreen> {
                   Icon(Icons.email, color: Colors.grey),
                   SizedBox(width: 5),
                   Text(
-                    "yuri@gmail.com",
+                    "yuri.martins@sou.unaerp.edu.br",
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.grey,
@@ -79,7 +79,7 @@ class _SobreScreenState extends State<SobreScreen> {
                   Icon(Icons.email, color: Colors.grey),
                   SizedBox(width: 5),
                   Text(
-                    "vini@gmail.com",
+                    "vinicius.araujo@sou.unaerp.edu.br",
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.grey,
@@ -87,21 +87,21 @@ class _SobreScreenState extends State<SobreScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.phone, color: Colors.grey),
-                  SizedBox(width: 5),
-                  Text(
-                    "+55 16 99876-5432",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
+              // const SizedBox(height: 10),
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Icon(Icons.phone, color: Colors.grey),
+              //     SizedBox(width: 5),
+              //     Text(
+              //       "+55 16 99876-5432",
+              //       style: TextStyle(
+              //         fontSize: 18,
+              //         color: Colors.grey,
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

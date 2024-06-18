@@ -37,14 +37,11 @@ class _BuscaTermosState extends State<BuscaTermos> {
         child: Column(children: [
           TextFormField(
             keyboardType: TextInputType.text,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 labelText: "Digite o Termo Técnico",
-                border: const OutlineInputBorder(),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                )
-            ),
+                border: OutlineInputBorder(),
+                suffixIcon: Icon( Icons.search),
+                ),
             onChanged: (val) {
               setState(() {
                 nome = val;
